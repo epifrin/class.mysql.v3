@@ -926,7 +926,6 @@ class MySQLQuery3{
         foreach($arr_debug AS $debug){
             $err_msg .= 'Скрипт: '.$debug['file'].', Строка: '.$debug['line'].'<br>';
         }
-        //print_r($arr_debug);
         echo str_replace("\n",'<br>',$err_msg);
         /*$query = mysqli_query("SELECT value FROM settings WHERE var='admin_mail'");
         $mail_admin = @mysqli_result($query, 0, 'value');
