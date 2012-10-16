@@ -1,7 +1,7 @@
 <?php
 /**  
- *    Класс MySQLi для работы с базой данных MySQL
- *    Для PHP5
+ *    пїЅпїЅпїЅпїЅпїЅ MySQLi пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ MySQL
+ *    Р”Р»СЏ PHP5
  *    @version: 3.1.3
  *    @update: 01.08.2012
  *    @author: Yuriy Panas http://www.panas.net.ua
@@ -12,7 +12,7 @@ class MySQLQuery3{
     var $last_sql = '';
     var $charset = '';
 
-    // инициаллизация соединения
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function __construct($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
         $dbcon = mysqli_connect($dblocation, $dbuser, $dbpass, $dbname);
         if ($dbcon){
@@ -26,17 +26,17 @@ class MySQLQuery3{
             }
 
         }else{
-            echo "<p>База данных недоступна, работа сайта невозможна!!!</p>";
+            echo "<p>пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!</p>";
             exit();
         }
     }
-    // закрыть соединение
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function __desctruct(){
         mysqli_close($this->database);
         return true;
     }
     
-    // выполнить произвольный SQL-запрос
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SQL-пїЅпїЅпїЅпїЅпїЅпїЅ
     function sql($sql){
         $this->last_sql = $sql;
         $query = mysqli_query($this->database, $sql);
@@ -51,19 +51,19 @@ class MySQLQuery3{
         }
     }
     
-    //возвращает данные запроса в виде одномерного массива
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function getarray($sql){
         $this->last_sql = $sql; 
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->db_error(mysqli_error($this->database),$sql, debug_backtrace());
         return mysqli_fetch_assoc($query);
     }
-    // алиас от getarray
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ getarray
     function ga($sql){
         return $this->getarray($sql);
     }
     
-    //возвращает данные запроса в виде двумерного массива
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function getmultiarray($sql){
         $this->last_sql = $sql; 
         $array = array();
@@ -74,12 +74,12 @@ class MySQLQuery3{
         }
         return $array;
     }
-    // алиас от getmultiarray
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ getmultiarray
     function gma($sql){
         return $this->getmultiarray($sql);
     }
     
-    //получить значение одного поля
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     function getvalue($sql){
         $this->last_sql = $sql; 
         $value = '';
@@ -88,12 +88,12 @@ class MySQLQuery3{
         list($value) = mysqli_fetch_row($query);
         return $value;
     }
-    // алиас от getvalue
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ getvalue
     function gv($sql){
         return $this->getvalue($sql);
     }
     
-    //возвращает данные одного столбца запроса в виде одномерного массива
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function getverticalarray($sql){
         $this->last_sql = $sql; 
         $array = array();
@@ -104,12 +104,12 @@ class MySQLQuery3{
         }
         return $array;
     }
-    // алиас от getverticalarray
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ getverticalarray
     function gva($sql){
         return $this->getverticalarray($sql);
     }
     
-    // получить двумерный массив с индексом первое поле результата запроса
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function getindexmultiarray($sql){
         $this->last_sql = $sql; 
         $array = array();
@@ -121,17 +121,17 @@ class MySQLQuery3{
         }
         return $array;
     }
-    // алиас от getverticalarray
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ getverticalarray
     function gima($sql){
         return $this->getindexmultiarray($sql);
     }
     
-    // получить текст последего SQL-апроса
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SQL-пїЅпїЅпїЅпїЅпїЅпїЅ
     function get_lastsql(){
         return $this->last_sql;
     }
     
-    // проверка
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function check_sql($text){
         $text = stripslashes($text);
         $text = mysqli_real_escape_string($this->database, $text);
@@ -144,21 +144,21 @@ class MySQLQuery3{
         return $text;
     }
     
-    // проверка значения для поля date в mysql
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ date пїЅ mysql
     function check_date($date){
         if( preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)$/",$date,$res)){
             return checkdate($res[2],$res[3],$res[1]);
         }else{ return false; };
     }
     
-    // проверка значения для поля time в mysql
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ time пїЅ mysql
     function check_time($time){
         if( preg_match("/^([0-2]\d):[0-5]\d:[0-5]\d$/",$time,$res)){
             if($res[1] < 24) return true; else return false;
         }else{ return false; };
     }
     
-    // проверка значения для поля datetime в mysql
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ datetime пїЅ mysql
     function check_datetime($datetime){
         if($this->check_date(substr($datetime,0,10)) && $this->check_time(substr($datetime,11))){
              return true;
@@ -167,11 +167,11 @@ class MySQLQuery3{
         }
     }
     
-    ######################## ВАЛИДАТОР ####################################
+    ######################## пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ####################################
     
-    /* структура параметров
+    /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         type = int, text, float, date, datetime, time
-        maxlen = число
+        maxlen = пїЅпїЅпїЅпїЅпїЅ
         empty = yes
         pk = yes
     */
@@ -225,15 +225,15 @@ class MySQLQuery3{
         return $this->arr_struct;
     }
     
-    // проверка параметров по структуре
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function check_params($arr_params,$table=''){
         if($table && !$this->arr_struct){
             $this->create_struct_from_t($table);
         }
         if($this->arr_struct){
             $this->err_text = '';
-            foreach($this->arr_struct AS $field => $struct){ //проход по структуре
-                if(isset($arr_params[$field])){  // параметр есть
+            foreach($this->arr_struct AS $field => $struct){ //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                if(isset($arr_params[$field])){  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                     if(!empty($arr_params[$field])){
 
                         if(($arr_params[$field] == 'NULL') && !empty($struct['empty'])){
@@ -242,7 +242,7 @@ class MySQLQuery3{
                             if(is_numeric($arr_params[$field]) && (int)$arr_params[$field]){
                                 $arr_params[$field] = (int)$arr_params[$field];
                             }else{
-                                $this->err_text = 'Недопустимое значение в параметре "'.$field.'"<br>';
+                                $this->err_text = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                             }
                         }elseif($struct['type'] == 'text'){
                             $arr_params[$field] = $this->check_text($arr_params[$field]);
@@ -250,32 +250,32 @@ class MySQLQuery3{
                             if(is_numeric($arr_params[$field]) && (float)$arr_params[$field]){
                                 $arr_params[$field] = (float)$arr_params[$field];
                             }else{
-                                $this->err_text = 'Недопустимое значение в параметре "'.$field.'"<br>';
+                                $this->err_text = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                             }
                         }elseif($struct['type'] == 'date'){
                             if(!$this->check_date($arr_params[$field])){
-                                $this->err_text = 'Недопустимое значение в параметре "'.$field.'"<br>';
+                                $this->err_text = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                             }
                         }elseif($struct['type'] == 'time'){
                             if(!$this->check_time($arr_params[$field])){
-                                $this->err_text = 'Недопустимое значение в параметре "'.$field.'"<br>';
+                                $this->err_text = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                             }
                           }elseif($struct['type'] == 'datetime'){
                             if(!$this->check_datetime($arr_params[$field])){
-                                $this->err_text = 'Недопустимое значение в параметре "'.$field.'"<br>';
+                                $this->err_text = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                             }
                         }else{
-                            // неизвестный тип
+                            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                         }
                     }elseif(empty($struct['empty']) && empty($struct['pk'])){
-                        $this->err_text = 'Не задано значенние параметра "'.$field.'"<br>';
+                        $this->err_text = 'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                     }
                 
                 }elseif(empty($struct['empty']) && empty($struct['pk'])){
                     if($struct['if_no_param'] == 'insert_default' || $struct['if_no_param'] == 'default'){
-                        if(!isset($struct['default']) && $struct['type'] != 'date' && $struct['type'] != 'datetime' && $struct['type'] != 'time' ) $this->err_text = 'Для параметра "'.$field.'" не задано значение по-умолчанию<br>'; 
+                        if(!isset($struct['default']) && $struct['type'] != 'date' && $struct['type'] != 'datetime' && $struct['type'] != 'time' ) $this->err_text = 'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ<br>'; 
                     }else{
-                        $this->err_text = 'Нет параметра "'.$field.'"<br>';
+                        $this->err_text = 'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "'.$field.'"<br>';
                     }
                 }
             }
@@ -289,13 +289,13 @@ class MySQLQuery3{
         }
     }
 
-    // запись новой строки в таблицу
-    // !!данные должны быть предварительно проверены!!
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    // !!пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!
     function insert($arr_params,$table){
         if(!$this->arr_struct){
             $this->create_struct_from_t($table);
         }
-        // если структура задана
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if($this->arr_struct){
             if($arr_params){
                 $sql = 'INSERT INTO '.$table;
@@ -335,18 +335,18 @@ class MySQLQuery3{
         }
     }
     
-    /** обновление записи таблицы
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     * 
     * @param array $arr_params
     * @param string $table
-    * @param string $where_field  // поле, для условия WHERE 
+    * @param string $where_field  // пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ WHERE 
     * @return bool
     */
     function update($arr_params, $table, $where_field){
         if(!$this->arr_struct){
             $this->create_struct_from_t($table);
         }
-        // если структура существует
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if($this->arr_struct){
             if($arr_params){
                 $sql = 'UPDATE '.$table.' SET ';
@@ -366,7 +366,7 @@ class MySQLQuery3{
                     }
                 }
                 $sql = substr($sql,0, -1);
-                // условие WHERE
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ WHERE
                 if($where_field && !empty($arr_params[$where_field]) && isset($this->arr_struct[$where_field])){
                     if(($this->arr_struct[$where_field]['type'] == 'int') || ($this->arr_struct[$where_field]['type'] == 'float')){
                         $sql .= ' WHERE '.$where_field.' = '.$arr_params[$where_field].'';
@@ -376,7 +376,7 @@ class MySQLQuery3{
                     //echo $sql;
                     return $this->sql($sql);
                 }else{
-                    // определить индексное поле
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                 }
             }else{
                 return false;
@@ -386,7 +386,7 @@ class MySQLQuery3{
         }
     }
 
-    // получить структуру таблицы для php-кода
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ php-пїЅпїЅпїЅпїЅ
     function get_struct_for_php(){
         $str_struct = false;
         if($this->arr_struct){
@@ -406,7 +406,7 @@ class MySQLQuery3{
         $this->arr_struct = '';
     }
 
-    // получить текст ошибки проверки
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     function get_error(){
         return $this->err_text;
     }
@@ -447,24 +447,24 @@ class MySQLQuery3{
          }
     }
     
-    // обработка ошибок
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private function db_error($msg,$text_sql, $arr_debug){
 
-        $err_msg = 'Запрос: '.$text_sql.'<br> Ошибка: '.$msg.' <br>';
-        $err_msg .= 'Цепочка вызываемых скриптов:<br>';
+        $err_msg = 'пїЅпїЅпїЅпїЅпїЅпїЅ: '.$text_sql.'<br> пїЅпїЅпїЅпїЅпїЅпїЅ: '.$msg.' <br>';
+        $err_msg .= 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:<br>';
         foreach($arr_debug AS $debug){
-            $err_msg .= 'Скрипт: '.$debug['file'].', Строка: '.$debug['line'].'<br>';
+            $err_msg .= 'пїЅпїЅпїЅпїЅпїЅпїЅ: '.$debug['file'].', пїЅпїЅпїЅпїЅпїЅпїЅ: '.$debug['line'].'<br>';
         }
         echo str_replace("\n",'<br>',$err_msg);
         /*$query = mysqli_query("SELECT value FROM settings WHERE var='admin_mail'");
         $mail_admin = @mysqli_result($query, 0, 'value');
         if (!empty($mail_admin)){
-            if (!mail($mail_admin, "site: Ошибка MySQL", $err_msg, "Content-Type: text/plain; charset=windows-1251\r\nFrom: mysql@domain.com\r\n" . "Reply-To: mysql@domain.com\r\n" . "X-Mailer: PHP/" . phpversion()))
+            if (!mail($mail_admin, "site: пїЅпїЅпїЅпїЅпїЅпїЅ MySQL", $err_msg, "Content-Type: text/plain; charset=windows-1251\r\nFrom: mysql@domain.com\r\n" . "Reply-To: mysql@domain.com\r\n" . "X-Mailer: PHP/" . phpversion()))
             {
                 echo $err_msg;
             }
         }//*/
-        exit("Возникла ошибка при работе с базой данных! Обратитесь к администратору сайта.");
+        exit("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.");
     }
 }
 
