@@ -12,7 +12,7 @@
 
 abstract class MySqlAbstract{
     protected $database;
-    protected $last_sql = '';
+    protected $lastQuery = '';
     protected $charset = '';
     
     public abstract function sql($sql);
@@ -55,8 +55,8 @@ abstract class MySqlAbstract{
     * return text of last SQL select
     * 
     */
-    public function get_lastsql(){
-        return $this->last_sql;
+    public function getLastQuery(){
+        return $this->lastQuery;
     }
     
     /* Validators */
@@ -127,7 +127,7 @@ class MySqlILibrary extends MySqlAbstract {
     }
     
     public function sql($sql){
-        $this->last_sql = $sql;
+        $this->lastQuery = $sql;
         $query = mysqli_query($this->database, $sql);
         if ($query){
             if(strtoupper(substr($sql,0,6)) == 'INSERT'){
@@ -147,7 +147,7 @@ class MySqlILibrary extends MySqlAbstract {
     * @return assoc array
     */
     public function getarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         return mysqli_fetch_assoc($query);
@@ -159,7 +159,7 @@ class MySqlILibrary extends MySqlAbstract {
     * @param string $sql SQL select
     */
     public function getmultiarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
@@ -175,7 +175,7 @@ class MySqlILibrary extends MySqlAbstract {
     * @param string $sql
     */
     public function getvalue($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $value = '';
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
@@ -189,7 +189,7 @@ class MySqlILibrary extends MySqlAbstract {
     * @param string $sql
     */
     public function getverticalarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
@@ -200,7 +200,7 @@ class MySqlILibrary extends MySqlAbstract {
     }
     
     public function getindexmultiarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysqli_query($this->database, $sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
@@ -244,7 +244,7 @@ class MySqlLibrary extends MySqlAbstract {
     }
     
     function sql($sql){
-        $this->last_sql = $sql;
+        $this->lastQuery = $sql;
         $query = mysql_query($sql,$this->database);
         if ($query){
             if(strtoupper(substr($sql,0,6)) == 'INSERT'){
@@ -264,7 +264,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @return assoc array
     */
     function getarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $query = mysql_query($sql, $this->database);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
         return mysql_fetch_assoc($query);
@@ -276,7 +276,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @param string $sql SQL select
     */
     function getmultiarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysql_query($sql,$this->database);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
@@ -292,7 +292,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @param string $sql
     */
     function getvalue($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $value = '';
         $query = mysql_query($sql,$this->database);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
@@ -306,7 +306,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @param string $sql
     */
     function getverticalarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysql_query($sql,$this->database);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
@@ -317,7 +317,7 @@ class MySqlLibrary extends MySqlAbstract {
     }
     
     public function getindexmultiarray($sql){
-        $this->last_sql = $sql; 
+        $this->lastQuery = $sql; 
         $array = array();
         $query = mysql_query($sql, $this->database);
         if (!$query) $this->db_error(mysql_error(), $sql, debug_backtrace()); 
