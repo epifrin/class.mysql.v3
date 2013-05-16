@@ -24,3 +24,18 @@ Get multiline array of sql select
 
     $array = $Query->getmultiarray('SELECT * FROM tablename');
     ->gma() is alias of getmultiarray()
+
+Get array values of first field
+
+    $array = $Query->getverticalarray('SELECT * FROM tablename');
+    ->gva() is alias of getverticalarray()
+
+Get index array with keys from values first field
+
+    $array = $Query->getindexmultiarray('SELECT * FROM tablename');
+    ->gima() is alias of getindexmultiarray()
+
+Get text of last SQL select
+
+    $sqltext = $Query->get_lastsql();
+
