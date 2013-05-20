@@ -63,24 +63,48 @@ abstract class MySqlAbstract{
     
     public abstract function check_sql($text);
     
+    /**
+    * incoming text is processed using functions: stripslashes, mysql_real_escape_string, htmlspecialchars
+    * 
+    * @param string $text
+    * @return string
+    */
     public function check_text($text){
         $text = str_replace('`','',$text);
         $text = htmlspecialchars(trim($this->check_sql($text)), ENT_NOQUOTES, $this->charset);
         return $text;
     }
     
+    /**
+    * check date format
+    * 
+    * @param string $date
+    * @return bool
+    */
     public function check_date($date){
         if( preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)$/",$date,$res)){
             return checkdate($res[2],$res[3],$res[1]);
         }else{ return false; };
     }
     
+    /**
+    * check time format
+    * 
+    * @param string $time
+    * @return bool
+    */
     public function check_time($time){
         if( preg_match("/^([0-2]\d):[0-5]\d:[0-5]\d$/",$time,$res)){
             if($res[1] < 24) return true; else return false;
         }else{ return false; };
     }
     
+    /**
+    * check datetime format
+    * 
+    * @param string $datetime
+    * @return bool
+    */
     public function check_datetime($datetime){
         if($this->check_date(substr($datetime,0,10)) && $this->check_time(substr($datetime,11))){
             return true;
@@ -211,6 +235,12 @@ class MySqlILibrary extends MySqlAbstract {
         return $array;
     }
     
+    /**
+    * incoming text is processed using functions: stripslashes, mysqli_real_escape_string
+    * 
+    * @param string $text
+    * @return string
+    */
     public function check_sql($text){
         $text = stripslashes($text);
         $text = mysqli_real_escape_string($this->database, $text);
@@ -328,6 +358,12 @@ class MySqlLibrary extends MySqlAbstract {
         return $array;
     }
     
+    /**
+    * incoming text is processed using functions: stripslashes, mysql_real_escape_string
+    * 
+    * @param string $text
+    * @return string
+    */
     function check_sql($text){
         $text = stripslashes($text);
         $text = mysql_real_escape_string($text, $this->database);
