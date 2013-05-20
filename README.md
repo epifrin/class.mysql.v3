@@ -1,14 +1,13 @@
 mysql.class
 ===========
 
-##PHP class for MySQL
+###PHP class for work with MySQL database
 
 
 Connect to database and create object
 
     require 'mysql.class.php';
     $Query = MySqlClass::connect('localhost','dbname','dbuser','dbpass','utf8');
-
 
 Simple sql query
 
@@ -39,3 +38,17 @@ Get text of last SQL query
 
     $sqltext = $Query->getLastQuery();
 
+Additional function
+
+    //incoming text is processed using functions: stripslashes, mysql_real_escape_string
+    $Query->check_sql($string)
+    
+    //incoming text is processed using functions: stripslashes, mysql_real_escape_string, htmlspecialchars
+    $Query->check_text($string)
+    
+    Example
+    $Query->sql('INSERT INTO tablename VALUES ("'.$Query->check_text($_POST['param1']).'", "'.$Query->check_text($_POST['param2']).'")');
+    
+    $Query->check_date($date) // example right date 2013-05-15
+    $Query->check_time($time) // example right time 13:05:45
+    $Query->check_datetime($datetime) // example right datetime 2013-05-15 13:05:45
