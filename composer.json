@@ -1,0 +1,10 @@
+{
+    "name":"epifrin/mysql-php-class",
+	"type":"library",
+	"description":"PHP class to work with a MySQL database",
+	"homepage": "https://github.com/epifrin/mysql.class",
+	"license": "MIT",
+	"require": {
+        "php": ">=5.2.0"
+    },
+}
