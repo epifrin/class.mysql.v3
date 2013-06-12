@@ -14,6 +14,8 @@ abstract class MySqlAbstract{
     protected $database;
     protected $lastQuery = '';
     protected $charset = '';
+    public $mailForError = '';
+    public $functionErrorName = '';
     
     public abstract function sql($sql);
     
@@ -113,15 +115,38 @@ abstract class MySqlAbstract{
         }
     }
     
+    /**
+    * error handler
+    * 
+    * @param string $msg Mysql error text
+    * @param string $sql SQL query
+    * @param array $arrDebug Debug backtrace
+    */
     protected function error($msg, $sql, $arrDebug){
-        $err_msg = '<b>MySQL Error:</b><br>
-                    SQL select: '.$sql.'<br> 
-                    Error: '.$msg.'<br>';
-        $err_msg .= 'Stack trace:<br>';
-        foreach($arrDebug AS $debug){
-            $err_msg .= 'File: <b>'.$debug['file'].'</b>, line: <b>'.$debug['line'].'</b><br>';
+        if(!empty($this->functionErrorName) && function_exists($this->functionErrorName)){
+            // Call alternative error handler function
+            $functionErrorName = $this->functionErrorName;
+            $functionErrorName($msg, $sql, $arrDebug);
+        
+        }else{
+            
+            $errMsg = '<b>MySQL Error:</b><br>
+                        SQL select: '.$sql.'<br> 
+                        Error: '.$msg.'<br>';
+            $errMsg .= 'Stack trace:<br>';
+            foreach($arrDebug AS $debug){
+                $errMsg .= 'File: <b>'.$debug['file'].'</b>, line: <b>'.$debug['line'].'</b><br>';
+            }
+            // send mail about error
+            if(!empty($this->mailForError)){
+                $headers .= "MIME-Version: 1.0;\r\n";
+                $headers .= "Content-Type: text/html; charset=windows-1251\r\n";
+                $headers .= "Content-Transfer-Encoding: base64\r\n";
+                $headers .= "\r\n";
+                @mail($this->mailForError, 'MySQL Error', chunk_split(base64_encode($errMsg)), $headers);
+            }
+            die($errMsg);
         }
-        die($err_msg);
     }
 }
 

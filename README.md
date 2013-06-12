@@ -52,3 +52,34 @@ Additional function
     $Query->check_date($date) // example right date 2013-05-15
     $Query->check_time($time) // example right time 13:05:45
     $Query->check_datetime($datetime) // example right datetime 2013-05-15 13:05:45
+
+Error message
+
+If you set email for object property mailForError, you will recieve error message
+
+    $Query->mailForError = 'my_mail@domain.com';
+
+Also, you can set alternative error handler function
+Example
+
+    $Query->functionErrorName = 'mysqlErrorFunctionName'; // set name of error handler function
+	
+	/**
+    * error handler
+    * 
+    * @param string $msg Mysql error text
+    * @param string $sql SQL query
+    * @param array $arrDebug Debug backtrace
+    */
+	function mysqlErrorFunctionName($msg, $sql, $arrDebug){
+		$errMsg = '<b>MySQL Error:</b><br>
+                SQL select: '.$sql.'<br> 
+                Error: '.$msg.'<br>';
+		$errMsg .= 'Stack trace:<br>';
+		foreach($arrDebug AS $debug){
+			$errMsg .= 'File: <b>'.$debug['file'].'</b>, line: <b>'.$debug['line'].'</b><br>';
+		}
+		die($errMsg);
+    }
+
+If you use alternative error handler function, you cannot use property "mailForError"
