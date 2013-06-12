@@ -60,6 +60,7 @@ If you set email for object property mailForError, you will recieve error messag
     $Query->mailForError = 'my_mail@domain.com';
 
 Also, you can set alternative error handler function
+
 Example
 
     $Query->functionErrorName = 'mysqlErrorFunctionName'; // set name of error handler function
