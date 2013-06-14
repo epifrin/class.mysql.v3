@@ -145,7 +145,11 @@ abstract class MySqlAbstract{
                 $headers .= "\r\n";
                 @mail($this->mailForError, 'MySQL Error', chunk_split(base64_encode($errMsg)), $headers);
             }
-            die($errMsg);
+            if(ini_get('display_errors') == 'On' || ini_get('display_errors') == 1){
+                die($errMsg);
+            }else{
+                die('Database error');
+            }
         }
     }
 }
