@@ -2,11 +2,10 @@
 /**  
  * PHP class for work with MySQL database
  * Work with library mysql and mysqli
- * For PHP 5
+ * For PHP 5+
  * 
- * @version: 1.0
- * @update: 01.08.2012
- * @
+ * @version: 1.0.1
+ * @update: 08.10.2013
  * @author: Yuriy Panas http://www.panas.net.ua
  */
 
@@ -122,24 +121,24 @@ abstract class MySqlAbstract{
     * @param string $sql SQL query
     * @param array $arrDebug Debug backtrace
     */
-    protected function error($msg, $sql, $arrDebug){
+    protected function error($sql_error_text, $sql, $arrDebug){
         if(!empty($this->functionErrorName) && function_exists($this->functionErrorName)){
             // Call alternative error handler function
             $functionErrorName = $this->functionErrorName;
-            $functionErrorName($msg, $sql, $arrDebug);
+            $functionErrorName($sql_error_text, $sql, $arrDebug);
         
         }else{
             
             $errMsg = '<b>MySQL Error:</b><br>
                         SQL select: '.$sql.'<br> 
-                        Error: '.$msg.'<br>';
+                        Error: '.$sql_error_text.'<br>';
             $errMsg .= 'Stack trace:<br>';
             foreach($arrDebug AS $debug){
                 $errMsg .= 'File: <b>'.$debug['file'].'</b>, line: <b>'.$debug['line'].'</b><br>';
             }
             // send mail about error
             if(!empty($this->mailForError)){
-                $headers .= "MIME-Version: 1.0;\r\n";
+                $headers = "MIME-Version: 1.0;\r\n";
                 $headers .= "Content-Type: text/html; charset=windows-1251\r\n";
                 $headers .= "Content-Transfer-Encoding: base64\r\n";
                 $headers .= "\r\n";

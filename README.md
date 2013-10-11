@@ -38,7 +38,7 @@ Get text of last SQL query
 
     $sqltext = $Query->getLastQuery();
 
-Additional function
+Additional functions
 
     //incoming text is processed using functions: stripslashes, mysql_real_escape_string
     $Query->check_sql($string)
