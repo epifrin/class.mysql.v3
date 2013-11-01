@@ -6,7 +6,7 @@ mysql.class
 
 Connect to database and create object
 
-    require 'mysql.class.php';
+    require_once '/path/to/mysql.class.php';
     $Query = MySqlClass::connect('localhost','dbname','dbuser','dbpass','utf8');
 
 Simple sql query
@@ -14,17 +14,22 @@ Simple sql query
     $Query->sql('INSERT INTO tablename VALUES ("value1","value2")');
     ->query() alias of sql()
 
-Get array of first record
+Get an array of the first row of the table
 
     $array = $Query->getarray('SELECT * FROM tablename');
     ->ga() alias of getarray()
 
-Get multiline array of sql query
+Get an multiple array of records of the table
 
     $array = $Query->getmultiarray('SELECT * FROM tablename');
     ->gma() is alias of getmultiarray()
 
-Get array values of first field
+Get a value of first field of first record
+
+	$value = $Query->getvalue('SELECT * FROM tablename');
+	->gv() is alias of getvalue()
+	
+Get an array of values of first column
 
     $array = $Query->getverticalarray('SELECT * FROM tablename');
     ->gva() is alias of getverticalarray()

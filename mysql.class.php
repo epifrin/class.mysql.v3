@@ -1,7 +1,7 @@
 <?php
 /**  
  * PHP class for work with MySQL database
- * Work with library mysql and mysqli
+ * Works with library mysql and mysqli
  * For PHP 5+
  * 
  * @version: 1.0.1
@@ -83,8 +83,8 @@ abstract class MySqlAbstract{
     * @return bool
     */
     public function check_date($date){
-        if( preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)$/",$date,$res)){
-            return checkdate($res[2],$res[3],$res[1]);
+        if( preg_match("/^(\d\d\d\d)-(\d\d)-(\d\d)$/", $date, $res)){
+            return checkdate($res[2], $res[3], $res[1]);
         }else{ return false; };
     }
     
@@ -95,7 +95,7 @@ abstract class MySqlAbstract{
     * @return bool
     */
     public function check_time($time){
-        if( preg_match("/^([0-2]\d):[0-5]\d:[0-5]\d$/",$time,$res)){
+        if( preg_match("/^([0-2]\d):[0-5]\d:[0-5]\d$/", $time, $res)){
             if($res[1] < 24) return true; else return false;
         }else{ return false; };
     }
@@ -178,42 +178,51 @@ class MySqlILibrary extends MySqlAbstract {
         return true;
     }
     
-    public function sql($sql){
+    private function sql_query($sql){
         $this->lastQuery = $sql;
         $query = mysqli_query($this->database, $sql);
+        return $query;
+    }
+    
+    /**
+    * makes sql query
+    * 
+    * @param string $sql SQL query
+    * @return mixed mysqli_query result or id of last insert query
+    */
+    public function sql($sql){
+        $query = $this->sql_query($sql);
         if ($query){
             if(strtoupper(substr($sql,0,6)) == 'INSERT'){
                 return mysqli_insert_id($this->database);
             }
             return $query;
         }else{
-             $this->error(mysqli_error($this->database),$sql, debug_backtrace());
-             return false;
+            $this->error(mysqli_error($this->database), $sql, debug_backtrace());
+            return false;
         }
     }
     
     /**
-    * return php array first record of table
+    * returns an array of the first row of the table
     * 
     * @param string $sql SQL SELECT
     * @return assoc array
     */
     public function getarray($sql){
-        $this->lastQuery = $sql; 
-        $query = mysqli_query($this->database, $sql);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         return mysqli_fetch_assoc($query);
     }
     
     /**
-    * return multiple array records of table
+    * returns a multiple array of records of the table
     * 
     * @param string $sql SQL select
     */
     public function getmultiarray($sql){
-        $this->lastQuery = $sql; 
         $array = array();
-        $query = mysqli_query($this->database, $sql);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         while($arr = mysqli_fetch_assoc($query)){
             $array[] = $arr;
@@ -222,28 +231,26 @@ class MySqlILibrary extends MySqlAbstract {
     }
     
     /**
-    * return value of first field of first record
+    * returns a value of first field of first record
     * 
     * @param string $sql
     */
     public function getvalue($sql){
-        $this->lastQuery = $sql; 
         $value = '';
-        $query = mysqli_query($this->database, $sql);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         list($value) = mysqli_fetch_row($query);
         return $value;
     }
     
     /**
-    * return array of values first field
+    * returns an array of values of first column
     * 
     * @param string $sql
     */
     public function getverticalarray($sql){
-        $this->lastQuery = $sql; 
         $array = array();
-        $query = mysqli_query($this->database, $sql);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         while($arr = mysqli_fetch_row($query)){
             $array[] = $arr[0];
@@ -252,9 +259,8 @@ class MySqlILibrary extends MySqlAbstract {
     }
     
     public function getindexmultiarray($sql){
-        $this->lastQuery = $sql; 
         $array = array();
-        $query = mysqli_query($this->database, $sql);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysqli_error($this->database), $sql, debug_backtrace());
         while($arr = mysqli_fetch_assoc($query)){  
             $index = reset($arr); 
@@ -301,9 +307,20 @@ class MySqlLibrary extends MySqlAbstract {
         return true;
     }
     
-    function sql($sql){
+    private function sql_query($sql){
         $this->lastQuery = $sql;
-        $query = mysql_query($sql,$this->database);
+        $query = mysql_query($sql, $this->database);
+        return $query;
+    }
+    
+    /**
+    * makes sql query
+    * 
+    * @param string $sql SQL query
+    * @return mixed mysql_query result or id of last insert query
+    */
+    public function sql($sql){
+        $query = $this->sql_query($sql);
         if ($query){
             if(strtoupper(substr($sql,0,6)) == 'INSERT'){
                 return mysql_insert_id($this->database);
@@ -316,27 +333,26 @@ class MySqlLibrary extends MySqlAbstract {
     }
     
     /**
-    * return php array first record of table
+    * returns an array of the first row of the table
     * 
     * @param string $sql SQL select
     * @return assoc array
     */
-    function getarray($sql){
-        $this->lastQuery = $sql; 
-        $query = mysql_query($sql, $this->database);
+    public function getarray($sql){
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
         return mysql_fetch_assoc($query);
     }
     
     /**
-    * return multiple array records of table
+    * returns a multiple array of records of the table
     * 
     * @param string $sql SQL select
+    * @return assoc array
     */
-    function getmultiarray($sql){
-        $this->lastQuery = $sql; 
+    public function getmultiarray($sql){
         $array = array();
-        $query = mysql_query($sql,$this->database);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
         while($arr = mysql_fetch_assoc($query)){
             $array[] = $arr;
@@ -345,28 +361,28 @@ class MySqlLibrary extends MySqlAbstract {
     }
     
     /**
-    * return value of first field of first record
+    * returns a value of first field of first record
     * 
     * @param string $sql
+    * @return string
     */
-    function getvalue($sql){
-        $this->lastQuery = $sql; 
+    public function getvalue($sql){
         $value = '';
-        $query = mysql_query($sql,$this->database);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
         list($value) = mysql_fetch_row($query);
         return $value;
     }
     
     /**
-    * return array of values first field
+    * returns an array of values of first column
     * 
     * @param string $sql
+    * @return assoc array
     */
     function getverticalarray($sql){
-        $this->lastQuery = $sql; 
         $array = array();
-        $query = mysql_query($sql,$this->database);
+        $query = $this->sql_query($sql);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
         while($arr = mysql_fetch_row($query)){
             $array[] = $arr[0];
@@ -375,9 +391,8 @@ class MySqlLibrary extends MySqlAbstract {
     }
     
     public function getindexmultiarray($sql){
-        $this->lastQuery = $sql; 
         $array = array();
-        $query = mysql_query($sql, $this->database);
+        $query = $this->sql_query($sql);
         if (!$query) $this->db_error(mysql_error(), $sql, debug_backtrace()); 
         while($arr = mysql_fetch_assoc($query)){  
             $index = reset($arr); 
@@ -392,7 +407,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @param string $text
     * @return string
     */
-    function check_sql($text){
+    public function check_sql($text){
         $text = stripslashes($text);
         $text = mysql_real_escape_string($text, $this->database);
         return $text;
