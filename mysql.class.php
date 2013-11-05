@@ -6,7 +6,7 @@
  * 
  * @version: 1.0.1
  * @update: 08.10.2013
- * @author: Yuriy Panas http://www.panas.net.ua
+ * @author: Yuriy Panas http://panas.net.ua
  */
 
 abstract class MySqlAbstract{
@@ -155,7 +155,7 @@ abstract class MySqlAbstract{
 
 class MySqlILibrary extends MySqlAbstract {
     
-    function __construct($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
+    public function __construct($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
         $dbcon = mysqli_connect($dblocation, $dbuser, $dbpass, $dbname);
         if ($dbcon){
             $this->database = $dbcon;
@@ -173,7 +173,7 @@ class MySqlILibrary extends MySqlAbstract {
         }
     }
     
-    function __desctruct(){
+    public function __desctruct(){
         mysqli_close($this->database);
         return true;
     }
@@ -284,7 +284,7 @@ class MySqlILibrary extends MySqlAbstract {
 
 class MySqlLibrary extends MySqlAbstract {
     
-    function __construct($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
+    public function __construct($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
         $dbcon = mysql_connect($dblocation, $dbuser, $dbpass);
         if ($dbcon){
             $this->database = $dbcon; 
@@ -302,7 +302,7 @@ class MySqlLibrary extends MySqlAbstract {
         }
     }
     
-    function __desctruct(){
+    public function __desctruct(){
         mysql_close($this->database);
         return true;
     }
@@ -380,7 +380,7 @@ class MySqlLibrary extends MySqlAbstract {
     * @param string $sql
     * @return assoc array
     */
-    function getverticalarray($sql){
+    public function getverticalarray($sql){
         $array = array();
         $query = $this->sql_query($sql);
         if (!$query) $this->error(mysql_error(), $sql, debug_backtrace());
