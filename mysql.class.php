@@ -2,10 +2,11 @@
 /**  
  * PHP class for work with MySQL database
  * Works with library mysql and mysqli
- * For PHP 5+
+ * For PHP 5.2+
+ * Uses Factory Method
  * 
- * @version: 1.0.1
- * @update: 08.10.2013
+ * @version: 1.0.2
+ * @update: 19.12.2013
  * @author: Yuriy Panas http://panas.net.ua
  */
 
@@ -428,7 +429,7 @@ class MySqlClass {
     * @param string $charset
     * @return object
     */
-    public function connect($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
+    public static function connect($dblocation, $dbname, $dbuser, $dbpass, $charset = ''){
         if(function_exists('mysqli_query')){
             return new MySqlILibrary($dblocation, $dbname, $dbuser, $dbpass, $charset);
         }else{
