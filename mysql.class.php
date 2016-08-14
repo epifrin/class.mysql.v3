@@ -7,7 +7,7 @@
  * 
  * @version: 1.0.2
  * @update: 19.12.2013
- * @author: Yuriy Panas http://panas.net.ua
+ * @author: Epifrin
  */
 
 abstract class MySqlAbstract{
